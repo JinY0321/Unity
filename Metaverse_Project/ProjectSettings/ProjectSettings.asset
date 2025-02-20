@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: ddae09c94e933b44c92022d49992db5e
+  productGUID: e2be24e7501cb29449b995720b20c819
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -794,10 +794,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: ac26b29e-08c4-4538-b21a-2d7e445894a3
+  cloudProjectId: 1665c8cd-daa8-4a3b-a8b7-e9bbdb665309
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Metaverse_Project
+  projectName: Metaverse_Project 2025-02-20_14-13-08
   organizationId: sunplant0321
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
