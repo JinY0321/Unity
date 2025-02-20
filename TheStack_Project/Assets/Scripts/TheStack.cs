@@ -1,5 +1,3 @@
-using System.Diagnostics.Tracing;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TheStack : MonoBehaviour
@@ -23,12 +21,12 @@ public class TheStack : MonoBehaviour
 
     int stackCount = -1;
     public int Score { get { return stackCount; } }
+
     int comboCount = 0;
     public int Combo { get { return comboCount; } }
 
     private int maxCombo = 0;
     public int MaxCombo { get => maxCombo; }
-
 
     public Color prevColor;
     public Color nextColor;
@@ -44,7 +42,7 @@ public class TheStack : MonoBehaviour
     private const string BestScoreKey = "BestScore";
     private const string BestComboKey = "BestCombo";
 
-    private bool isGameOver = false;
+    private bool isGameOver = true;
 
     void Start()
     {
@@ -54,14 +52,13 @@ public class TheStack : MonoBehaviour
             return;
         }
 
-        bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
-        bestCombo = PlayerPrefs.GetInt(BestComboKey, 0);
-
         prevColor = GetRandomColor();
         nextColor = GetRandomColor();
 
+        bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
+        bestCombo = PlayerPrefs.GetInt(BestComboKey, 0);
+
         prevBlockPosition = Vector3.down;
-        Spawn_Block();
         Spawn_Block();
     }
 
@@ -83,6 +80,7 @@ public class TheStack : MonoBehaviour
                 UpdateScore();
                 isGameOver = true;
                 GameOverEffect();
+                UIManager.Instance.SetScoreUI();
             }
         }
 
@@ -121,9 +119,9 @@ public class TheStack : MonoBehaviour
         blockTransition = 0f;
 
         lastBlock = newTrans;
-        
-        isMovingX = !isMovingX;
 
+        isMovingX = !isMovingX;
+        UIManager.Instance.UpdateScore();
         return true;
     }
 
@@ -162,17 +160,16 @@ public class TheStack : MonoBehaviour
     {
         blockTransition += Time.deltaTime * BlockMovingSpeed;
 
-        float movePosition = Mathf.PingPong(blockTransition, BoundSize) - BoundSize/2; //PingPong : 0부터 지정한 사이즈의 값을 지정하는 메서드.
+        float movePosition = Mathf.PingPong(blockTransition, BoundSize) - BoundSize / 2;
 
         if (isMovingX)
         {
-            lastBlock.localPosition = new Vector3(movePosition * MovingBoundsSize,stackCount,secondaryPosition);
+            lastBlock.localPosition = new Vector3(movePosition * MovingBoundsSize, stackCount, secondaryPosition);
         }
         else
         {
-            lastBlock.localPosition=new Vector3(secondaryPosition,stackCount,-movePosition*MovingBoundsSize);
+            lastBlock.localPosition = new Vector3(secondaryPosition, stackCount, -movePosition * MovingBoundsSize);
         }
-
     }
 
     bool PlaceBlock()
@@ -200,7 +197,7 @@ public class TheStack : MonoBehaviour
                 tempPosition.x = middle;
                 lastBlock.localPosition = lastPosition = tempPosition;
 
-                float rubbleHalfScale = deltaX / 2f;
+                float rubbleHalfScale = deltaX / 2;
                 CreateRubble(
                     new Vector3(isNegativeNum
                             ? lastPosition.x + stackBounds.x / 2 + rubbleHalfScale
@@ -209,6 +206,7 @@ public class TheStack : MonoBehaviour
                         , lastPosition.z),
                     new Vector3(deltaX, 1, stackBounds.y)
                 );
+
                 comboCount = 0;
             }
             else
@@ -238,7 +236,7 @@ public class TheStack : MonoBehaviour
                 tempPosition.z = middle;
                 lastBlock.localPosition = lastPosition = tempPosition;
 
-                float rubbleHalfScale = deltaZ / 2f;
+                float rubbleHalfScale = deltaZ / 2;
                 CreateRubble(
                     new Vector3(
                         lastPosition.x
@@ -332,5 +330,35 @@ public class TheStack : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        int childCount = this.transform.childCount;
 
+        for (int i = 0; i < childCount; i++)
+        {
+            Destroy(this.transform.GetChild(i).gameObject);
+        }
+
+        isGameOver = false;
+
+        lastBlock = null;
+        desiredPosition = Vector3.zero;
+        stackBounds = new Vector3(BoundSize, BoundSize);
+
+        stackCount = -1;
+        isMovingX = true;
+        blockTransition = 0f;
+        secondaryPosition = 0f;
+
+        comboCount = 0;
+        maxCombo = 0;
+
+        prevBlockPosition = Vector3.down;
+
+        prevColor = GetRandomColor();
+        nextColor = GetRandomColor();
+
+        Spawn_Block();
+        Spawn_Block();
+    }
 }
