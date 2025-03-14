@@ -142,9 +142,9 @@
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\UVCPackageVersion.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\UI\BoolSetting.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\Views\Changesets\DateFilter.cs" />
-    <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\_Deprecated\WebApi\IsCollabProjectMigratedResponse.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\DrawGuiModeSwitcher.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\Developer\ProgressOperationHandler.cs" />
+    <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\_Deprecated\WebApi\IsCollabProjectMigratedResponse.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\_Deprecated\CollabPlugin.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\Views\CreateWorkspace\DrawCreateWorkspaceView.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.7.1\Editor\Views\Shelves\ShelvesListView.cs" />
