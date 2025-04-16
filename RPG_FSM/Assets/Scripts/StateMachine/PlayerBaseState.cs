@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBaseState : IState
 {
@@ -23,6 +25,21 @@ public class PlayerBaseState : IState
         
     }
 
+    protected virtual void AddInputActionsCallbacks()
+    {
+        PlayerController input = stateMachine.Player.Input;
+        input.playerActions.Movement.canceled += OnMovementCanceled;
+        input.playerActions.Run.started += OnRunStarted;
+    }
+
+    protected virtual void RemoveInputActionsCallbacks()
+    {
+        PlayerController input = stateMachine.Player.Input;
+        input.playerActions.Movement.canceled -= OnMovementCanceled;
+        input.playerActions.Run.started -= OnRunStarted;
+
+    }
+
     public virtual void HandleInput() //StateMachine에 있는 handleinput을 Player에서 사용하는 것.
     {
         ReadMovementInput();
@@ -37,6 +54,16 @@ public class PlayerBaseState : IState
     {
         // StartAnimation 함수 먼저 작성
         Move();
+    }
+
+    protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+
+    }
+
+    protected virtual void OnRunStarted(InputAction.CallbackContext context)
+    {
+
     }
 
     //모든 상태에 필요한 것들

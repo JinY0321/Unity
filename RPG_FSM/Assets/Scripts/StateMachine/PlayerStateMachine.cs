@@ -6,6 +6,9 @@ public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; }
     public PlayerIdleState IdleState { get; }
+    public PlayerWalkState WalkState { get; private set; }
+    public PlayerRunState RunState { get; private set; }
+
 
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; }
