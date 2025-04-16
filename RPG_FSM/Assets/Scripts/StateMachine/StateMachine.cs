@@ -22,7 +22,7 @@ public abstract class StateMachine
         currentState?.Enter(); //설정이 들어왔다.
     }
 
-    public void HandleINput()
+    public void HandleInput()
     {
         currentState?.HandleInput();
     }
