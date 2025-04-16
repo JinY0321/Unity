@@ -18,11 +18,12 @@ public class Player : MonoBehaviour
     {
         AnimationData.Initialize();
 
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
         Input = GetComponent<PlayerController>();
         Controller = GetComponent<CharacterController>();
 
         stateMachine = new PlayerStateMachine(this);
+        stateMachine.ChangeState(stateMachine.IdleState);
     }
 
     private void Update()

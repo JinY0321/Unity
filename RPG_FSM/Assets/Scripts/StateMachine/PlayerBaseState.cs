@@ -59,7 +59,7 @@ public class PlayerBaseState : IState
     private void Move()
     {
         // GetMoveMentDirection 함수 먼저 작성
-        Vector3 movementDirection = GetMovementDirection(); //방향 잡기
+        Vector3 movementDirection = GetMovementDirection(); 
 
         Move(movementDirection);
 
@@ -67,7 +67,7 @@ public class PlayerBaseState : IState
         Rotate(movementDirection);
     }
 
-    private Vector3 GetMovementDirection()
+    private Vector3 GetMovementDirection() //방향 잡기
     {
         Vector3 forward = stateMachine.MainCameraTransform.forward;
         Vector3 right = stateMachine.MainCameraTransform.right;
@@ -104,10 +104,5 @@ public class PlayerBaseState : IState
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, stateMachine.RotationDamping * Time.deltaTime);
         }
-    }
-
-    void IState.Update()
-    {
-        throw new System.NotImplementedException();
     }
 }
